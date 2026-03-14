@@ -50,6 +50,7 @@ function App() {
   const [informe, setInforme] = useState(null)
 
   const agregarFiesta = () => {
+    
     if (!cedula.trim() || !invitados || !duracion) return
 
     const nueva = {
@@ -59,6 +60,27 @@ function App() {
       duracion: parseFloat(duracion),
       fecha: new Date().toLocaleDateString('es-ES'),
     }
+    var tarifa = 0;
+    if (1 <= invitados && invitados <= 100) {
+      tarifa = 8000;
+    } else if ( 101 <= invitados && invitados <= 500) {
+      tarifa = 6000;
+    } else if ( invitados > 500) {
+      tarifa = 4000;
+    }
+   
+    var cuotaHora = 0
+    if (1 <= duracion && duracion <= 3) {
+      cuotaHora = 100000;
+    } else if ( 4 <= duracion && duracion <= 6) {
+      cuotaHora = 200000;
+    } else if ( duracion > 6) {
+      cuotaHora = 300000;
+    }
+    nueva.tarifa = tarifa;
+    nueva.cuotaHora = cuotaHora;
+    console.log(tarifa)
+    console.log(cuotaHora)
     setFiestas((prev) => [...prev, nueva])
     setCedula('')
     setInvitados('')
@@ -73,7 +95,11 @@ function App() {
     }
     const totalInvitados = fiestas.reduce((acc, f) => acc + f.invitados, 0)
     const totalHoras = fiestas.reduce((acc, f) => acc + f.duracion, 0)
-    setInforme({ totalFiestas: fiestas.length, totalInvitados, totalHoras })
+    const totalFiestas3Horas = fiestas.filter(f => f.duracion <= 3).length
+    const totalFiestas6Horas = fiestas.filter(f => f.duracion <= 6).length - totalFiestas3Horas
+    const totalFiestasMas6Horas = fiestas.filter(f => f.duracion > 6).length 
+    const totalFiestas = fiestas.length
+    setInforme({ totalFiestas, totalInvitados, totalHoras, totalFiestas3Horas, totalFiestas6Horas, totalFiestasMas6Horas })
   }
 
   return (
@@ -89,9 +115,6 @@ function App() {
             <span className="title-bold">Tarragona</span>
           </span>
         </div>
-        <p className="header-tagline">
-          <em>Elegancia y celebración en cada detalle</em>
-        </p>
       </header>
 
       {/* Main content */}
@@ -149,10 +172,12 @@ function App() {
 
           {informe && (
             <div className="informe-box">
-              <p>📊 <strong>Informe Mensual</strong></p>
-              <p>Total fiestas: <strong>{informe.totalFiestas}</strong></p>
+              <p><strong>Informe Mensual</strong></p>
               <p>Total invitados: <strong>{informe.totalInvitados}</strong></p>
               <p>Total horas: <strong>{informe.totalHoras}h</strong></p>
+              <p>Total fiestas 1-3 horas: <strong>{informe.totalFiestas3Horas}</strong></p>
+              <p>Total fiestas 4-6 horas: <strong>{informe.totalFiestas6Horas}</strong></p>
+              <p>Total fiestas mas de 6 horas: <strong>{informe.totalFiestasMas6Horas}</strong></p>
             </div>
           )}
         </section>
@@ -183,6 +208,7 @@ function App() {
                   <div className="fiesta-details">
                     <span>👥 {f.invitados} invitados</span>
                     <span>⏱ {f.duracion}h</span>
+                    <span>💰 ${(f.invitados * f.tarifa) + (f.cuotaHora)} </span>
                   </div>
                 </li>
               ))}
