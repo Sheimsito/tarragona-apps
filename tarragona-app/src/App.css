@@ -1,0 +1,395 @@
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-base: #151f2e;
+  --bg-card: #1c2a3a;
+  --bg-card-inner: #1e3045;
+  --bg-input: #162032;
+  --border-color: #2a3f55;
+  --gold: #f5b800;
+  --gold-hover: #ffd140;
+  --text-main: #e2e8f0;
+  --text-muted: #7a95b2;
+  --text-label: #94aec4;
+  --accent-bar: #f5b800;
+  --radius: 10px;
+  --transition: 0.2s ease;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ─── Layout Wrapper ──────────────────────────────────────── */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 48px;
+  background-color: #111c2a;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111c2a;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px rgba(245, 184, 0, 0.35);
+}
+
+.header-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.title-light {
+  font-weight: 400;
+  color: var(--text-main);
+}
+
+.title-bold {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.header-tagline {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ─── Main Area ───────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  display: flex;
+  gap: 28px;
+  padding: 36px 48px;
+  align-items: flex-start;
+}
+
+/* ─── Cards ───────────────────────────────────────────────── */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.form-card {
+  flex: 0 0 360px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.list-card {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── Card Title ─────────────────────────────────────────── */
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.accent-bar {
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  background-color: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ─── List Header ────────────────────────────────────────── */
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.badge {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ─── Form Controls ──────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  color: var(--text-label);
+  font-weight: 500;
+}
+
+.form-group input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 7px;
+  color: var(--text-main);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(245, 184, 0, 0.15);
+}
+
+/* remove number arrows */
+.form-group input[type='number']::-webkit-outer-spin-button,
+.form-group input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.form-group input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.form-row {
+  display: flex;
+  gap: 14px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: #111c2a;
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-hover);
+  box-shadow: 0 4px 16px rgba(245, 184, 0, 0.35);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-card-inner);
+  border-color: #3d5672;
+}
+
+/* ─── Informe Box ────────────────────────────────────────── */
+.informe-box {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--text-label);
+  animation: fadeIn 0.3s ease;
+}
+
+.informe-box strong {
+  color: var(--text-main);
+}
+
+/* ─── Empty State ────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 56px 20px;
+  background-color: var(--bg-card-inner);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.empty-state p {
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+/* ─── Fiestas List ───────────────────────────────────────── */
+.fiestas-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 420px;
+  padding-right: 4px;
+}
+
+.fiestas-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.fiestas-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fiestas-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.fiesta-item {
+  background-color: var(--bg-card-inner);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  animation: fadeIn 0.25s ease;
+  transition: border-color var(--transition);
+}
+
+.fiesta-item:hover {
+  border-color: #3d5672;
+}
+
+.fiesta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fiesta-cedula {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.fiesta-fecha {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.fiesta-details {
+  display: flex;
+  gap: 14px;
+  font-size: 0.85rem;
+  color: var(--text-label);
+  flex-shrink: 0;
+}
+
+/* ─── Footer ─────────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .main-content {
+    flex-direction: column;
+    padding: 20px 16px;
+  }
+
+  .form-card {
+    flex: unset;
+    width: 100%;
+  }
+}
