@@ -48,10 +48,38 @@ function App() {
   const [duracion, setDuracion] = useState('')
   const [fiestas, setFiestas] = useState([])
   const [informe, setInforme] = useState(null)
+  const [errores, setErrores] = useState({})
 
   const agregarFiesta = () => {
     
-    if (!cedula.trim() || !invitados || !duracion) return
+    const nuevosErrores = {}
+    
+    if (!cedula.trim()) {
+      nuevosErrores.cedula = 'La cédula es requerida'
+    } else if (cedula.trim().length < 7) {
+      nuevosErrores.cedula = 'La cédula debe tener al menos 7 dígitos'
+    } else if (cedula.trim().length > 10) {
+      nuevosErrores.cedula = 'La cédula debe tener como máximo 10 dígitos'
+    }
+
+    if (!invitados) {
+      nuevosErrores.invitados = 'La cantidad de invitados es requerida'
+    } else if (parseInt(invitados) < 1) {
+      nuevosErrores.invitados = 'Debe haber al menos 1 invitado'
+    }
+
+    if (!duracion) {
+      nuevosErrores.duracion = 'La duración es requerida'
+    } else if (parseFloat(duracion) < 0.5) {
+      nuevosErrores.duracion = 'La duración mínima es de 0.5 horas'
+    }
+
+    if (Object.keys(nuevosErrores).length > 0) {
+      setErrores(nuevosErrores)
+      return
+    }
+
+    setErrores({})
 
     const nueva = {
       id: Date.now(),
@@ -86,6 +114,7 @@ function App() {
     setInvitados('')
     setDuracion('')
     setInforme(null)
+    setErrores({})
   }
 
   const calcularInforme = () => {
@@ -130,11 +159,13 @@ function App() {
             <label htmlFor="cedula">Cédula del Contratista</label>
             <input
               id="cedula"
-              type="text"
+              type="number"
               placeholder="Ej: 12345678"
               value={cedula}
               onChange={(e) => setCedula(e.target.value)}
+              className={errores.cedula ? 'input-error' : ''}
             />
+            {errores.cedula && <span className="error-text">{errores.cedula}</span>}
           </div>
 
           <div className="form-row">
@@ -147,7 +178,9 @@ function App() {
                 min="1"
                 value={invitados}
                 onChange={(e) => setInvitados(e.target.value)}
+                className={errores.invitados ? 'input-error' : ''}
               />
+              {errores.invitados && <span className="error-text">{errores.invitados}</span>}
             </div>
             <div className="form-group">
               <label htmlFor="duracion">Duración (Horas)</label>
@@ -159,7 +192,9 @@ function App() {
                 step="0.5"
                 value={duracion}
                 onChange={(e) => setDuracion(e.target.value)}
+                className={errores.duracion ? 'input-error' : ''}
               />
+              {errores.duracion && <span className="error-text">{errores.duracion}</span>}
             </div>
           </div>
 
@@ -206,9 +241,9 @@ function App() {
                     <span className="fiesta-fecha">{f.fecha}</span>
                   </div>
                   <div className="fiesta-details">
-                    <span>👥 {f.invitados} invitados</span>
-                    <span>⏱ {f.duracion}h</span>
-                    <span>💰 ${(f.invitados * f.tarifa) + (f.cuotaHora)} </span>
+                    <span> {f.invitados} invitados</span>
+                    <span> ⏱ {f.duracion}h</span>
+                    <span> Monto: ${(f.invitados * f.tarifa) + (f.cuotaHora)} </span>
                   </div>
                 </li>
               ))}
@@ -219,7 +254,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2026 Compañía de Eventos Tarragona.</p>
+        <p>© 2026 Compañía de Fiestas y Eventos Tarragona.</p>
       </footer>
     </div>
   )
